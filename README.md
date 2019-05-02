@@ -11,21 +11,19 @@
 
 This will build a container for [FreePBX](https://www.freepbx.org) - A Voice over IP Manager for Asterisk. Upon starting this image it will give you a turn-key PBX system for SIP calling. 
 
-* Latest release Version 15
-* Compiles and Installs Asterisk 16
+* Latest release Version 14
+* Compiles and Installs Asterisk 14
 * Choice of running embedded database or Modifies to support external MySQL Database and only require one DB.
 * Supports Data Persistence
 * Fail2Ban installed to block brute force attacks
 * Debian Stretch Base w/ Apache2
-* NodeJS 11.x
+* NodeJS 8.x
 * Automatically Installs User Control Panel and displays at first page
 * Option to Install [Flash Operator Panel 2](https://www.fop2.com/)
 * Customizable FOP and Admin URLs
 
-This Container uses [tiredofit/debian:stretch](https://hub.docker.com/r/tiredofit/debian) as a base.
         
-**If you are presently running this image when it utilized FreePBX 14 and 
-Asterisk 14 and can no longer use your image, please see [this post](https://github.com/tiredofit/docker-freepbx/issues/51)**
+This Container uses [tiredofit/debian:stretch](https://hub.docker.com/r/tiredofit/debian) as a base.
 
 
 [Changelog](CHANGELOG.md)
@@ -57,7 +55,7 @@ Companion @
 https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) 
 in order to serve your pages. However, it will run just fine on it's own if you map appropriate ports.
 
-You will also need an external MySQL/MariaDB Container, athough it can use an internally provided service (not recommended).
+You will also need an external MySQL/MariaDB Container
 
 # Installation
 
@@ -65,16 +63,8 @@ Automated builds of the image are available on [Docker Hub](https://hub.docker.c
 
 
 ```bash
-docker pull tiredofit/freepbx:(imagetag)
+docker pull tiredofit/freepbx:14
 ```
-The following image tags are available:
-
-* `15` - Asterisk 16, Freepbx 15 - Debian Stretch (latest build)
-* `14` - Asterisk 14, Freepbx 14 - Debian Stretch (latest build)
-* `latest` - Asterisk 16, Freepbx 15 - Debian Stretch (Same as `15`)
-
-You can also visit the image tags section on Docker hub to pull a version that follows the CHANGELOG.
-
 
 # Quick Start
 
@@ -99,7 +89,7 @@ The following directories are used for configuration and can be mapped for persi
 | Directory    | Description                                                 |
 |--------------|-------------------------------------------------------------|
 |  `/certs`    | Drop your Certificates here for TLS w/PJSIP / UCP / HTTPd/ FOP |
-|  `/var/www/html` | FreePBX web files |
+|  `/www/freepbx` | FreePBX web files |
 |  `/var/log/` | Apache, Asterisk and FreePBX Log Files |
 |  `/data`      | Data Persistence for Asterisk and Freepbx and FOP
 |  `/assets/custom` | *OPTIONAL* - If you would like to overwrite some files in the container, put them here following the same folder structure for anything underneath the /var/www/html directory |
@@ -121,7 +111,6 @@ Along with the Environment Variables from the [Base image](https://hub.docker.co
 | `ENABLE_FAIL2BAN` | Enable Fail2ban to block the bad guys - Default `TRUE`|
 | `ENABLE_FOP` | Enable Flash Operator Panel - Default `TRUE` |
 | `ENABLE_SSL` | Enable HTTPd to serve SSL requests - Default `FALSE`|
-| `ENABLE_XMPP` | Enable XMPP Module with MongoDB - Default `FALSE` |
 | `HTTP_PORT`  | HTTP Listening Port - Default `80` |
 | `HTTPS_PORT`  | HTTPS Listening Port - Default `443` |
 | `FOP_DIRECTORY` | What folder to access FOP - Default `/fop`
